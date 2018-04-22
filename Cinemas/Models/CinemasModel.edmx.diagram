@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f5b9e1f3b37f486987739609eb588e68" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="CinemasModel.Category" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="CinemasModel.Cineplex" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="CinemasModel.City" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="CinemasModel.Film" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="CinemasModel.Order" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CinemasModel.Room" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="CinemasModel.Seat" Width="1.5" PointX="7.5" PointY="0.75" />
+        <EntityTypeShape EntityType="CinemasModel.Showtime" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="CinemasModel.sysdiagram" Width="1.5" PointX="7.75" PointY="6.875" />
+        <AssociationConnector Association="CinemasModel.FK_Film_Category" />
+        <AssociationConnector Association="CinemasModel.FK_Cineplex_City" />
+        <AssociationConnector Association="CinemasModel.FK_Room_Cineplex" />
+        <AssociationConnector Association="CinemasModel.FK_Showtime_Film" />
+        <AssociationConnector Association="CinemasModel.FK_Order_Showtime" />
+        <AssociationConnector Association="CinemasModel.FK_Seat_Room" />
+        <AssociationConnector Association="CinemasModel.FK_Showtime_Room" />
+        <AssociationConnector Association="CinemasModel.OrderSeat" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

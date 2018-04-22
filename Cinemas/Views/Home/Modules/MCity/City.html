@@ -1,0 +1,39 @@
+﻿<div ng-controller="CityController">
+    <table table-border table-hover>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Thành phố</th>
+                <th>
+                    <a class="fa fa-plus" href="#" ng-click="AddCity()"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="CityEntity in CityEntities">
+                <td>
+                    <div>{{$index+1}}</div>
+                </td>
+                <td>
+                    <div ng-if="CityEntity.IsEdit == false">{{CityEntity.Name}}</div>
+                    <div ng-if="CityEntity.IsEdit == true">
+                        <input class="form-control" ng-model="CityEntity.Name" />
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="CityEntity.IsEdit == false">
+                        <a class="fa fa-pencil" href="#" ng-click="EditCity($index)"></a>
+                        <a class="fa fa-trash" href="#" ng-click="DeleteCity($index)"></a>
+                    </div>
+                    <div ng-if="CityEntity.IsEdit == true">
+                        <a class="fa fa-save" href="#" ng-click="SaveCity($index)"></a>
+                        <a class="fa fa-remove" href="#" ng-click="CancelCityy($index)"></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

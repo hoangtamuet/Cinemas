@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CinemasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CinemasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="CinemasModel.Category" />
+    <EntitySet Name="Cineplexes" EntityType="CinemasModel.Cineplex" />
+    <EntitySet Name="Cities" EntityType="CinemasModel.City" />
+    <EntitySet Name="Films" EntityType="CinemasModel.Film" />
+    <EntitySet Name="Orders" EntityType="CinemasModel.Order" />
+    <EntitySet Name="Rooms" EntityType="CinemasModel.Room" />
+    <EntitySet Name="Seats" EntityType="CinemasModel.Seat" />
+    <EntitySet Name="Showtimes" EntityType="CinemasModel.Showtime" />
+    <EntitySet Name="sysdiagrams" EntityType="CinemasModel.sysdiagram" />
+    <AssociationSet Name="FK_Film_Category" Association="CinemasModel.FK_Film_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Film" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cineplex_City" Association="CinemasModel.FK_Cineplex_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Cineplex" EntitySet="Cineplexes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Cineplex" Association="CinemasModel.FK_Room_Cineplex">
+      <End Role="Cineplex" EntitySet="Cineplexes" />
+      <End Role="Room" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Showtime_Film" Association="CinemasModel.FK_Showtime_Film">
+      <End Role="Film" EntitySet="Films" />
+      <End Role="Showtime" EntitySet="Showtimes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Showtime" Association="CinemasModel.FK_Order_Showtime">
+      <End Role="Showtime" EntitySet="Showtimes" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seat_Room" Association="CinemasModel.FK_Seat_Room">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Seat" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Showtime_Room" Association="CinemasModel.FK_Showtime_Room">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Showtime" EntitySet="Showtimes" />
+    </AssociationSet>
+    <AssociationSet Name="OrderSeat" Association="CinemasModel.OrderSeat">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Seat" EntitySet="Seats" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="CinemasModel.FK_Film_Category" FromRole="Category" ToRole="Film" />
+  </EntityType>
+  <EntityType Name="Cineplex">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="CinemasModel.FK_Cineplex_City" FromRole="Cineplex" ToRole="City" />
+    <NavigationProperty Name="Rooms" Relationship="CinemasModel.FK_Room_Cineplex" FromRole="Cineplex" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cineplexes" Relationship="CinemasModel.FK_Cineplex_City" FromRole="City" ToRole="Cineplex" />
+  </EntityType>
+  <EntityType Name="Film">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="CinemasModel.FK_Film_Category" FromRole="Film" ToRole="Category" />
+    <NavigationProperty Name="Showtimes" Relationship="CinemasModel.FK_Showtime_Film" FromRole="Film" ToRole="Showtime" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShowtimeId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Showtime" Relationship="CinemasModel.FK_Order_Showtime" FromRole="Order" ToRole="Showtime" />
+    <NavigationProperty Name="Seats" Relationship="CinemasModel.OrderSeat" FromRole="Order" ToRole="Seat" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CineplexId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Rank" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cineplex" Relationship="CinemasModel.FK_Room_Cineplex" FromRole="Room" ToRole="Cineplex" />
+    <NavigationProperty Name="Seats" Relationship="CinemasModel.FK_Seat_Room" FromRole="Room" ToRole="Seat" />
+    <NavigationProperty Name="Showtimes" Relationship="CinemasModel.FK_Showtime_Room" FromRole="Room" ToRole="Showtime" />
+  </EntityType>
+  <EntityType Name="Seat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoomId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Room" Relationship="CinemasModel.FK_Seat_Room" FromRole="Seat" ToRole="Room" />
+    <NavigationProperty Name="Orders" Relationship="CinemasModel.OrderSeat" FromRole="Seat" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Showtime">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FilmId" Type="Int32" Nullable="false" />
+    <Property Name="RoomId" Type="Int32" Nullable="false" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Film" Relationship="CinemasModel.FK_Showtime_Film" FromRole="Showtime" ToRole="Film" />
+    <NavigationProperty Name="Orders" Relationship="CinemasModel.FK_Order_Showtime" FromRole="Showtime" ToRole="Order" />
+    <NavigationProperty Name="Room" Relationship="CinemasModel.FK_Showtime_Room" FromRole="Showtime" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Film_Category">
+    <End Type="CinemasModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="CinemasModel.Film" Role="Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Film">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cineplex_City">
+    <End Type="CinemasModel.City" Role="City" Multiplicity="1" />
+    <End Type="CinemasModel.Cineplex" Role="Cineplex" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cineplex">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Cineplex">
+    <End Type="CinemasModel.Cineplex" Role="Cineplex" Multiplicity="1" />
+    <End Type="CinemasModel.Room" Role="Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cineplex">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="CineplexId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Showtime_Film">
+    <End Type="CinemasModel.Film" Role="Film" Multiplicity="1" />
+    <End Type="CinemasModel.Showtime" Role="Showtime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Showtime">
+        <PropertyRef Name="FilmId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Showtime">
+    <End Type="CinemasModel.Showtime" Role="Showtime" Multiplicity="1" />
+    <End Type="CinemasModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Showtime">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ShowtimeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seat_Room">
+    <End Type="CinemasModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="CinemasModel.Seat" Role="Seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Showtime_Room">
+    <End Type="CinemasModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="CinemasModel.Showtime" Role="Showtime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Showtime">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderSeat">
+    <End Type="CinemasModel.Order" Role="Order" Multiplicity="*" />
+    <End Type="CinemasModel.Seat" Role="Seat" Multiplicity="*" />
+  </Association>
+</Schema>

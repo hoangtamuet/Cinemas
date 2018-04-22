@@ -1,0 +1,48 @@
+﻿<div ng-controller="CineplexController">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Thành phố</th>
+                <th>Tên rạp</th>
+                <th>
+                    <a class="fa fa-plus" href="#" ng-click="AddCineplex()"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="CineplexEntity in CineplexEntities">
+                <td>
+                    <div>{{$index+1}}</div>
+                </td>
+                <td>
+                    <div ng-if="CineplexEntity.IsEdit == false">{{CineplexEntity.CityEntity.Name}}</div>
+                    <div ng-if="CineplexEntity.IsEdit == true">
+                        <select name="singleSelect" ng-model="CineplexEntity.CityId">
+                            <option ng-repeat="CityEntity in CityEntities" value="{{CityEntity.Id}}">{{CityEntity.Name}}</option>
+                        </select><br />
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="CineplexEntity.IsEdit == false">{{CineplexEntity.Name}}</div>
+                    <div ng-if="CineplexEntity.IsEdit == true">
+                        <input class="form-control" ng-model="CineplexEntity.Name" />
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="CineplexEntity.IsEdit== false">
+                        <a class="fa fa-pencil" href="#" ng-click="EditCineplex($index)"></a>
+                        <a class="fa fa-trash" href="#" ng-click="DeleteCineplex($index)"></a>
+                    </div>
+                    <div ng-if="CineplexEntity.IsEdit == true">
+                        <a class="fa fa-save" href="#" ng-click="SaveCineplex($index)"></a>
+                        <a class="fa fa-remove" href="#" ng-click="CancelCineplex($index)"></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

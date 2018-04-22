@@ -1,0 +1,100 @@
+﻿<div ng-controller="OrderController">
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Lịch chiếu</th>
+                    <th>Phòng chiếu</th>
+                    <th>Film</th>
+                    <th>Giá</th>
+                    <th>
+                        <a class="fa fa-plus" href="#" ng-click="AddOrder()"></a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="OrderEntity in OrderEntities">
+                    <td>
+                        <div><a href="#" ng-click="SelectOrder(OrderEntity)">{{$index+1}}</a> </</div>
+                    </td>
+                    <td>
+                        <div ng-if="OrderEntity.IsEdit == false">{{OrderEntity.ShowtimeEntity.Time}}</div>
+                        <div ng-if="OrderEntity.IsEdit == true">
+                            <select name="singleSelect" ng-model="OrderEntity.ShowtimeId">
+                                <option ng-repeat="ShowtimeEntity in ShowtimeEntities" value="{{ShowtimeEntity.Id}}">{{ShowtimeEntity.Time}} - Phòng {{ShowtimeEntity.RoomEntity.Name}} - {{ShowtimeEntity.FilmEntity.Name}}</option>
+                            </select><br />
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-if="OrderEntity.IsEdit == false">{{OrderEntity.ShowtimeEntity.RoomEntity.Name}}</div>
+                    </td>
+                    <td>
+                        <div ng-if="OrderEntity.IsEdit == false">{{OrderEntity.ShowtimeEntity.FilmEntity.Name}}</div>
+                    </td>
+                    <td>
+                        <div ng-if="OrderEntity.IsEdit == false">{{OrderEntity.Price}}</div>
+                        <div ng-if="OrderEntity.IsEdit == true">
+                            <input class="form-control" ng-model="OrderEntity.Price" />
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-if="OrderEntity.IsEdit== false">
+                            <a class="fa fa-pencil" href="#" ng-click="EditOrder($index)"></a>
+                            <a class="fa fa-trash" href="#" ng-click="DeleteOrder($index)"></a>
+                        </div>
+                        <div ng-if="OrderEntity.IsEdit == true">
+                            <a class="fa fa-save" href="#" ng-click="SaveOrder($index)"></a>
+                            <a class="fa fa-remove" href="#" ng-click="CancelOrder($index)"></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+    </div>
+    <div class="row">
+        <div class="row col-md-12">
+            <span>Danh sách ghế đã đặt</span>
+        </div>
+        <br />
+        <div class=" row col-md-12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td>Stt</td>
+                        <td>Mã ghế</td>
+                        <td>Phòng</td>
+                        <td><a class="fa fa-plus" href="#" ng-click="AddSeat()"></a></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="SeatEntity in OrderEntity.SeatEntities">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            <div ng-if="!SeatEntity.IsEdit">
+                                {{SeatEntity.Name}}
+                            </div>
+                            <div ng-if="SeatEntity.IsEdit == true">
+                                <select name="singleSelect" ng-model="SeatEntity.Id" ng-change="SelectSeat(SeatEntity)">
+                                    <option ng-repeat="Seat in SeatEntities" value="{{Seat.Id}}">{{Seat.Name}} - Phòng {{Seat.RoomEntity.Name}}</option>
+                                </select><br />
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="!SeatEntity.IsEdit">
+                                {{SeatEntity.RoomEntity.Name}}
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="!SeatEntity.IsEdit"><a class="fa fa-remove" href="#" ng-click="DeleteSeat($index)"></a></div>
+                            <div ng-if="SeatEntity.IsEdit"><a class="fa fa-save" href="#" ng-click="SaveSeat($index)"></a></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

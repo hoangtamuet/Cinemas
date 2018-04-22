@@ -1,0 +1,91 @@
+﻿<div ng-controller="FilmController">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Thể loại</th>
+                <th>Tên phim</th>
+                <th>Ngày khởi chiếu</th>
+                <th>Ngày kết thúc</th>
+                <th>Thời lượng</th>
+                <th>Mô tả</th>
+                <th>
+                    <a class="fa fa-plus" href="#" ng-click="AddFilm()"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--ng-repeat: Với mỗi phần tử FilmEntity trong FilmEntities-->
+            <!-- trước đó FilmEntities cần lấy từ trên Server xuống ở file js-->
+            <tr ng-repeat="FilmEntity in FilmEntities">
+                <!-- Hiển thị STT -->
+                <td>
+                    <div>{{$index+1}}</div>
+                </td>
+                <!-- Hiển thị Thể loại -->
+                <td>
+                    <!--Ở trạng thái Hiển thị thì hiện ra tên Thể loại luôn-->
+                    <div ng-if="FilmEntity.IsEdit == false">{{FilmEntity.CategoryEntity.Name}}</div>
+                    <!--Ở trạng thái Tương tác thì hiện ra drop-down Thể loại để chọn-->
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <select name="singleSelect" ng-model="FilmEntity.CategoryId">
+                            <option ng-repeat="CategoryEntity in CategoryEntities" value="{{CategoryEntity.Id}}">{{CategoryEntity.Name}}</option>
+                        </select><br>
+                    </div>
+                </td>
+                <!-- Hiển thị tên Film -->
+                <td>
+                    <!--Ở trạng thái Hiển thị thì hiện ra tên Film luôn-->
+                    <div ng-if="FilmEntity.IsEdit == false">{{FilmEntity.Name}}</div>
+                    <!-- Ở trạng thái Tương tác thì tạo ô nhập input Name-->
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <input class="form-control" ng-model="FilmEntity.Name" />
+                    </div>
+                </td>
+                <!-- Hiển thị ngày khởi chiếu -->
+                <td>
+                    <div ng-if="FilmEntity.IsEdit == false">{{FilmEntity.StartDate | date:'dd-MM-yyyy'}}</div>
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <input class="form-control" ng-model="FilmEntity.StartDate" />
+                    </div>
+                    
+                </td>
+                <!-- Hiển thị ngày kết thúc -->
+                <td>
+                    <div ng-if="FilmEntity.IsEdit == false">{{FilmEntity.EndDate | date:'dd-MM-yyyy'}}</div>
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <input class="form-control" ng-model="FilmEntity.EndDate" />
+                    </div>
+                </td>
+                <!-- Hiển thị Thời lượng -->
+                <td>
+                    <div ng-if="FilmEntity.IsEdit == false">{{FilmEntity.Duration}} phút</div>
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <input class="form-control" ng-model="FilmEntity.Duration" />
+                    </div>
+                </td>
+                <!-- Hiển thị Mô tả -->
+                <td>
+                    <div ng-if="FilmEntity.IsEdit == false">{{FilmEntity.Description}}</div>
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <input class="form-control" ng-model="FilmEntity.Description" />
+                    </div>
+                </td>
+                <!-- Hiển thị icon tương tác -->
+                <td>
+                    <div ng-if="FilmEntity.IsEdit == false">
+                        <a class="fa fa-pencil" href="#" ng-click="EditFilm($index)"></a>
+                        <a class="fa fa-trash" href="#" ng-click="DeleteFilm($index)"></a>
+                    </div>
+                    <div ng-if="FilmEntity.IsEdit == true">
+                        <a class="fa fa-save" href="#" ng-click="SaveFilm($index)" ></a>
+                        <a class="fa fa-remove" href="#" ng-click="CancelFilm($index)"></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

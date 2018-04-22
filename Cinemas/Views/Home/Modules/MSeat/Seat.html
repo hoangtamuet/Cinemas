@@ -1,0 +1,45 @@
+﻿<div ng-controller="SeatController">
+    <table class="table table-bordered table-hover>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên phòng</th>
+                <th>Ghế</th>
+                <th>
+                    <a class="fa fa-plus" href="#" ng-click="AddSeat()"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="SeatEntity in SeatEntities">
+                <td>
+                    <div>{{$index+1}}</div>
+                </td>
+                <td>
+                    <div ng-if="SeatEntity.IsEdit == false">{{SeatEntity.RoomEntity.Name}}</div>
+                    <div ng-if="SeatEntity.IsEdit == true">
+                        <select name="singleSelect" ng-model="SeatEntity.RoomId">
+                            <option ng-repeat="RoomEntitiy in RoomEntities" value="{{RoomEntity.Id}}">{{RoomEntity.Name}}</option>
+                        </select><br>
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="SeatEntity.IsEdit == false">{{SeatEntity.Name}}</div>
+                </td>
+                <td>
+                    <div ng-if="SeatEntity.IsEdit == false">
+                        <a class="fa fa-pencil" href="#" ng-click="EditSeat($index)"></a>
+                        <a class="fa fa-trash" href="#" ng-click="DeleteSeat($index)"></a>
+                    </div>
+                    <div ng-if="SeatEntity.IsEdit == true">
+                        <a class="fa fa-save" href="#" ng-click="SaveSeat($index)"></a>
+                        <a class="fa fa-remove" href="#" ng-click="CancelCSeat($index)"></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

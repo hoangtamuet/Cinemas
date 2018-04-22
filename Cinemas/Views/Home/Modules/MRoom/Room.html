@@ -1,0 +1,42 @@
+﻿<div ng-controller="RoomController">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên rạp</th>
+                <th>Tên phòng</th>
+                <th> Hạng</th>
+                <th>
+                    <a class="fa fa-plus" href="#" ng-click="AddRoom()"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="RoomEntity in RoomEntities">
+                <td>
+                    <div>{{$index+1}}</div>
+                </td>
+                <td>
+                    <div ng-if="RoomEntity.IsEdit == false">{{RoomEntity.CineplexEntity.Name}}</div>
+                    <div ng-if="RoomEntity.IsEdit == true">
+                        <select name="singleSelect" ng-model="RoomEntity.CineplexId">
+                            <option ng-repeat="CineplexEntity in CineplexEntities" value="{{CineplexEntity.Id}}">{{CineplexEntity.Name}}</option>
+                        </select><br>
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="RoomEntity.IsEdit == false">{{RoomEntity.Name}}</div>
+                </td>
+                <td>
+                    <div ng-if="RoomEntity.IsEdit == true">
+                        <input class="form-control" ng-model="RoomEntity.Name" />
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>

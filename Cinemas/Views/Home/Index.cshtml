@@ -1,0 +1,44 @@
+﻿<html>
+<head>
+    <script src="~/Views/Home/Assets/jquery-3.2.1.min.js"></script>
+    <link href="~/Views/Home/Assets/fonts/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Views/Home/Assets/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet" />
+    <link href="~/Views/Home/Assets/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet" />
+    <link href="~/Views/Home/Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Views/Home/Assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Views/Home/Assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Views/Home/Assets/angular.min.js"></script>
+</head>
+<body ng-app="CinemasApp" ng-controller="MainController">
+
+    <div class="container-fluid" ng-controller="HeaderController">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" ng-class="{active: Tabs[0]}" ng-click="ChooseTab(0)" href="#" >Film</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ng-class="{active: Tabs[1]}" ng-click="ChooseTab(1)" href="#">Cineplex</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ng-class="{active: Tabs[2]}" ng-click="ChooseTab(2)" href="#">Order</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ng-class="{active: Tabs[3]}" ng-click="ChooseTab(3)" href="#">Category</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container-fluid" ng-controller="BodyController">
+        <div ng-if="Tabs[0]" ng-include="'/Views/Home/Modules/MFilm/Film.html'"> </div>
+        <div ng-if="Tabs[1]" ng-include="'/Views/Home/Modules/MCineplex/Cineplex.html'"> </div>
+        <div ng-if="Tabs[2]" ng-include="'/Views/Home/Modules/MOrder/Order.html'"> </div>
+        <div ng-if="Tabs[3]" ng-include="'/Views/Home/Modules/MCategory/Category.html'"> </div>
+    </div>
+
+    <script src="~/Views/Home/app.js"></script>
+    <script src="~/Views/Home/Modules/BodyController.js"></script>
+    <script src="~/Views/Home/Modules/MCineplex/Cineplex.js"></script>
+    <script src="~/Views/Home/Modules/MFilm/Film.js"></script>
+    <script src="~/Views/Home/Modules/MOrder/Order.js"></script>
+    <script src="~/Views/Home/Modules/MCategory/Category.js"></script>
+</body>
+</html>

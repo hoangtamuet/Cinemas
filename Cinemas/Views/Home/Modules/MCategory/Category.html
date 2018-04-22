@@ -1,0 +1,65 @@
+﻿<div ng-controller="CategoryController">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Thể loại</th>
+                <th>
+                    <a class="fa fa-plus" href="#" ng-click="AddCategory()"></a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    <input type="text" ng-model="SearchCategoryEntity.Name" />
+                </th>
+                <th>
+                    <a class="fa fa-search" href="#" ng-click="SearchCategory()"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ng-repeat: Với mỗi phần tử CategoryEntity trong CategoryEntities; cần lấy dữ liệu trên server về file js-->
+            <tr ng-repeat="CategoryEntity in CategoryEntities">
+                <!-- Hiển thị STT Category theo phân trang -->
+                <td>
+                    <div>{{$index+1 + PageNumber * ItemNumber}}</div>
+                </td>
+                <!-- Hiển thị Tên Thể loại ở 2 trạng thái -->
+                <td>
+                    <!-- Trạng thái Hiển thị -->
+                    <div ng-if="CategoryEntity.IsEdit == false">{{CategoryEntity.Name}}</div>
+                    <!-- Trạng thái Tương tác: drop-down cho lựa chọn -->
+                    <div ng-if="CategoryEntity.IsEdit == true">
+                        <input class="form-control" ng-model="CategoryEntity.Name" />
+                    </div>
+                </td>
+                <!-- Hiển thị icon tương tác -->
+                <td>
+                    <div ng-if="CategoryEntity.IsEdit == false">
+                        <a class="fa fa-pencil" href="#" ng-click="EditCategory($index)"></a>
+                        <a class="fa fa-trash" href="#" ng-click="DeleteCategory($index)"></a>
+                    </div>
+                    <div ng-if="CategoryEntity.IsEdit == true">
+                        <a class="fa fa-save" href="#" ng-click="SaveCategory($index)"></a>
+                        <a class="fa fa-remove" href="#" ng-click="CancelCategory($index)"></a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <!-- Hiển thị phân trang cho Category -->
+            <tr>
+                <td colspan="3">
+                    <ul class="pagination">
+                        <li ng-repeat="n in [] | range: PageTotal" class="page-item" ng-class="{active: $index === PageNumber}" >
+                            <a class="page-link" href="#" ng-click="SearchCategory($index)">{{$index+1}}</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
